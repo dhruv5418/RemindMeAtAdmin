@@ -41,6 +41,31 @@ app.get('/delete/:id', function(req, res){
       console.log('UID='+uid);
     });
 })
+app.get('/disable/:id', function(req, res){
+  const uid=req.params.id
+  admin.auth().updateUser(uid, { disabled: true })
+  .then(function() {
+    console.log('Successfully disabled user');
+    res.send("hello");
+  })
+  .catch(function(error) {
+    console.log('Error while disabling user:', error);
+    console.log('UID='+uid);
+  });
+})
+
+app.get('/enable/:id', function(req, res){
+  const uid=req.params.id
+  admin.auth().updateUser(uid, { disabled: false })
+  .then(function() {
+    console.log('Successfully enabled user');
+    res.send("hello");
+  })
+  .catch(function(error) {
+    console.log('Error while enabling user:', error);
+    console.log('UID='+uid);
+  });
+})
 
 app.listen(port,()=>{
     console.log('server is up');
